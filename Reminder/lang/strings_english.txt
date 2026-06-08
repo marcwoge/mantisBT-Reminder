@@ -1,0 +1,51 @@
+<?php
+# MantisBT - Open Ticket Reminder Plugin - English language strings
+
+$s_plugin_Reminder_title = 'Open Ticket Reminder';
+$s_plugin_Reminder_description = 'Reminds users about their open tickets: a configurable digest (weekly, Monday 09:00 by default) plus optional single-ticket reminders on a fixed interval.';
+
+# Menus / page titles
+$s_plugin_Reminder_account_menu = 'Reminder settings';
+$s_plugin_Reminder_account_title = 'My reminder settings';
+$s_plugin_Reminder_config_title = 'Open Ticket Reminder configuration';
+
+# Sections
+$s_plugin_Reminder_digest_section = 'Weekly digest';
+$s_plugin_Reminder_per_issue_section = 'Single ticket reminders';
+$s_plugin_Reminder_general_section = 'General';
+
+# Options
+$s_plugin_Reminder_enabled = 'Plugin enabled';
+$s_plugin_Reminder_digest_enabled = 'Send digest';
+$s_plugin_Reminder_digest_day = 'Day of week';
+$s_plugin_Reminder_digest_hour = 'Hour of day (0-23)';
+$s_plugin_Reminder_digest_skip_empty = 'Skip digest when no open tickets';
+$s_plugin_Reminder_include_assigned = 'Include tickets assigned to me';
+$s_plugin_Reminder_include_reported = 'Include tickets reported by me';
+$s_plugin_Reminder_include_monitored = 'Include tickets I monitor';
+$s_plugin_Reminder_per_issue_enabled = 'Send single ticket reminders';
+$s_plugin_Reminder_per_issue_interval_days = 'Remind about a ticket every N days';
+$s_plugin_Reminder_per_issue_stale_days = 'Only if untouched for N days (0 = always)';
+$s_plugin_Reminder_open_status_threshold = 'Open status threshold';
+$s_plugin_Reminder_open_status_threshold_hint = 'Leave empty to use the standard "resolved" threshold.';
+$s_plugin_Reminder_cron_token = 'Web cron token';
+$s_plugin_Reminder_cron_token_hint = 'Secret for plugin.php?page=Reminder/cron&token=... (leave empty to disable the web endpoint).';
+$s_plugin_Reminder_save = 'Save';
+
+# Weekdays (0 = Sunday)
+$s_plugin_Reminder_weekday_0 = 'Sunday';
+$s_plugin_Reminder_weekday_1 = 'Monday';
+$s_plugin_Reminder_weekday_2 = 'Tuesday';
+$s_plugin_Reminder_weekday_3 = 'Wednesday';
+$s_plugin_Reminder_weekday_4 = 'Thursday';
+$s_plugin_Reminder_weekday_5 = 'Friday';
+$s_plugin_Reminder_weekday_6 = 'Saturday';
+
+# E-mail content
+$s_plugin_Reminder_digest_subject = 'Reminder: you have %d open ticket(s)';
+$s_plugin_Reminder_digest_intro = 'Hello %1$s,' . "\n\n" . 'these %2$d ticket(s) are still open and waiting for you:';
+$s_plugin_Reminder_issue_subject = 'Reminder for ticket #%1$d: %2$s';
+$s_plugin_Reminder_issue_intro = 'Hello %s,' . "\n\n" . 'this ticket is still open:';
+$s_plugin_Reminder_issue_age_days = 'last updated %d day(s) ago';
+$s_plugin_Reminder_issue_overdue = '[OVERDUE]';
+$s_plugin_Reminder_mail_footer = '--' . "\n" . 'You receive this message because of your reminder settings. You can change or disable them in MantisBT under My Account > Reminder settings.';

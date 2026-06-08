@@ -1,0 +1,51 @@
+<?php
+# MantisBT - Open Ticket Reminder Plugin - Deutsche Sprachdatei
+
+$s_plugin_Reminder_title = 'Erinnerung an offene Tickets';
+$s_plugin_Reminder_description = 'Erinnert Benutzer an ihre offenen Tickets: eine einstellbare Übersicht (standardmäßig wöchentlich, montags 09:00 Uhr) sowie optionale Einzel-Erinnerungen in festem Intervall.';
+
+# Menüs / Seitentitel
+$s_plugin_Reminder_account_menu = 'Erinnerungs-Einstellungen';
+$s_plugin_Reminder_account_title = 'Meine Erinnerungs-Einstellungen';
+$s_plugin_Reminder_config_title = 'Konfiguration: Erinnerung an offene Tickets';
+
+# Abschnitte
+$s_plugin_Reminder_digest_section = 'Wöchentliche Übersicht';
+$s_plugin_Reminder_per_issue_section = 'Einzel-Erinnerungen pro Ticket';
+$s_plugin_Reminder_general_section = 'Allgemein';
+
+# Optionen
+$s_plugin_Reminder_enabled = 'Plugin aktiviert';
+$s_plugin_Reminder_digest_enabled = 'Übersicht versenden';
+$s_plugin_Reminder_digest_day = 'Wochentag';
+$s_plugin_Reminder_digest_hour = 'Uhrzeit (Stunde, 0-23)';
+$s_plugin_Reminder_digest_skip_empty = 'Keine Übersicht senden, wenn keine offenen Tickets';
+$s_plugin_Reminder_include_assigned = 'Mir zugewiesene Tickets einbeziehen';
+$s_plugin_Reminder_include_reported = 'Von mir gemeldete Tickets einbeziehen';
+$s_plugin_Reminder_include_monitored = 'Von mir beobachtete Tickets einbeziehen';
+$s_plugin_Reminder_per_issue_enabled = 'Einzel-Erinnerungen pro Ticket versenden';
+$s_plugin_Reminder_per_issue_interval_days = 'Pro Ticket alle N Tage erinnern';
+$s_plugin_Reminder_per_issue_stale_days = 'Nur wenn N Tage unverändert (0 = immer)';
+$s_plugin_Reminder_open_status_threshold = 'Statusschwelle „offen“';
+$s_plugin_Reminder_open_status_threshold_hint = 'Leer lassen, um die Standardschwelle „erledigt“ zu verwenden.';
+$s_plugin_Reminder_cron_token = 'Web-Cron-Token';
+$s_plugin_Reminder_cron_token_hint = 'Geheimnis für plugin.php?page=Reminder/cron&token=... (leer = Web-Endpunkt deaktiviert).';
+$s_plugin_Reminder_save = 'Speichern';
+
+# Wochentage (0 = Sonntag)
+$s_plugin_Reminder_weekday_0 = 'Sonntag';
+$s_plugin_Reminder_weekday_1 = 'Montag';
+$s_plugin_Reminder_weekday_2 = 'Dienstag';
+$s_plugin_Reminder_weekday_3 = 'Mittwoch';
+$s_plugin_Reminder_weekday_4 = 'Donnerstag';
+$s_plugin_Reminder_weekday_5 = 'Freitag';
+$s_plugin_Reminder_weekday_6 = 'Samstag';
+
+# E-Mail-Inhalte
+$s_plugin_Reminder_digest_subject = 'Erinnerung: Sie haben %d offene(s) Ticket(s)';
+$s_plugin_Reminder_digest_intro = 'Hallo %1$s,' . "\n\n" . 'diese %2$d Ticket(s) sind noch offen und warten auf Sie:';
+$s_plugin_Reminder_issue_subject = 'Erinnerung an Ticket #%1$d: %2$s';
+$s_plugin_Reminder_issue_intro = 'Hallo %s,' . "\n\n" . 'dieses Ticket ist noch offen:';
+$s_plugin_Reminder_issue_age_days = 'zuletzt vor %d Tag(en) aktualisiert';
+$s_plugin_Reminder_issue_overdue = '[ÜBERFÄLLIG]';
+$s_plugin_Reminder_mail_footer = '--' . "\n" . 'Sie erhalten diese Nachricht aufgrund Ihrer Erinnerungs-Einstellungen. Sie können diese in MantisBT unter Mein Konto > Erinnerungs-Einstellungen ändern oder deaktivieren.';
