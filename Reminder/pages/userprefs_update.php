@@ -33,6 +33,9 @@ reminder_user_config_set( $t_user_id, 'per_issue_interval_days',
 reminder_user_config_set( $t_user_id, 'per_issue_stale_days',
 	max( 0, gpc_get_int( 'per_issue_stale_days', 0 ) ) );
 
+$t_format = gpc_get_string( 'email_format', 'html' );
+reminder_user_config_set( $t_user_id, 'email_format', $t_format === 'text' ? 'text' : 'html' );
+
 form_security_purge( 'plugin_Reminder_userprefs_update' );
 
 print_successful_redirect( plugin_page( 'userprefs', true ) );

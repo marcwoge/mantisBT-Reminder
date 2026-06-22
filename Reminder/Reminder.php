@@ -74,6 +74,8 @@ class ReminderPlugin extends MantisPlugin {
 			'per_issue_include_monitored' => OFF,
 
 			# --- general ----------------------------------------------------
+			# E-mail format: 'html' (styled) or 'text' (plain, via mail queue)
+			'email_format'              => 'html',
 			# Status threshold below which an issue counts as "open".
 			# Empty means: use the standard "bug_resolved_status_threshold".
 			'open_status_threshold'     => '',

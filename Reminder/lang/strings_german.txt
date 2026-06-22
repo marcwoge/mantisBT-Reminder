@@ -26,6 +26,9 @@ $s_plugin_Reminder_include_monitored = 'Von mir beobachtete Tickets einbeziehen'
 $s_plugin_Reminder_per_issue_enabled = 'Einzel-Erinnerungen pro Ticket versenden';
 $s_plugin_Reminder_per_issue_interval_days = 'Pro Ticket alle N Tage erinnern';
 $s_plugin_Reminder_per_issue_stale_days = 'Nur wenn N Tage unverändert (0 = immer)';
+$s_plugin_Reminder_email_format = 'E-Mail-Format';
+$s_plugin_Reminder_email_format_html = 'HTML (ansprechend formatiert)';
+$s_plugin_Reminder_email_format_text = 'Reiner Text';
 $s_plugin_Reminder_open_status_threshold = 'Statusschwelle „offen“';
 $s_plugin_Reminder_open_status_threshold_hint = 'Leer lassen, um die Standardschwelle „erledigt“ zu verwenden.';
 $s_plugin_Reminder_cron_token = 'Web-Cron-Token';

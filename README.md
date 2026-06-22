@@ -9,6 +9,8 @@ Ein MantisBT-Plugin, das Benutzer an ihre **offenen Tickets** erinnert.
   (z. B. „alle X Tage erinnere mich an dieses offene Ticket“).
 * **Pro Benutzer einstellbar** – jeder kann die globalen Vorgaben des
   Administrators für sich überschreiben oder die Erinnerungen abschalten.
+* **Ansprechende HTML-Mails** (mit reinem Text als Fallback) oder wahlweise
+  reine Text-Mails.
 * Zweisprachig: **Deutsch & Englisch**.
 
 ---
@@ -129,6 +131,46 @@ globalen Admin-Vorgaben; alles andere wird weiterhin von den globalen Vorgaben
 geerbt.
 
 ---
+
+## E-Mail-Format (HTML)
+
+Standardmäßig werden **HTML-Mails** mit einer kleinen Übersichtstabelle
+verschickt (überfällige Tickets rot markiert), inklusive Klartext-Variante als
+Fallback. Umstellbar global und pro Benutzer über die Option *E-Mail-Format*
+(HTML / Reiner Text).
+
+> Hinweis: HTML-Mails werden direkt über die SMTP-/Mail-Einstellungen von
+> MantisBT versendet (PHPMailer). Schlägt das fehl oder ist PHPMailer nicht
+> verfügbar, fällt das Plugin automatisch auf die normale Text-Mail-Warteschlange
+> von MantisBT zurück.
+
+## Tests
+
+Die Kernlogik (Zeitplan-Entscheidung, Intervall-/Stale-Prüfung, E-Mail-Rendering)
+ist durch Unit-Tests abgedeckt, die **ohne MantisBT, ohne Datenbank und ohne
+Webserver** laufen – die nötigen MantisBT-Funktionen werden durch Stubs ersetzt
+([tests/stubs.php](tests/stubs.php)).
+
+**Du musst MantisBT dafür nicht installieren.** Zwei Wege:
+
+1. **Automatisch via GitHub Actions** – bei jedem Push laufen die Tests auf
+   PHP 7.4–8.3 (siehe [.github/workflows/tests.yml](.github/workflows/tests.yml)).
+   So brauchst du lokal gar nichts.
+
+2. **Lokal** – nur eine PHP-CLI nötig (kein MantisBT):
+
+   ```bash
+   php tests/run_tests.php
+   ```
+
+   Ohne lokales PHP geht es auch per Docker:
+
+   ```bash
+   docker run --rm -v "$PWD":/app -w /app php:8.2-cli php tests/run_tests.php
+   ```
+
+Der Runner gibt am Ende `Passed: N  Failed: 0` aus und liefert bei Fehlern den
+Exit-Code 1 (CI-tauglich).
 
 ## Kompatibilität
 

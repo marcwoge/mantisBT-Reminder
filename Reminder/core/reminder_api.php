@@ -201,36 +201,221 @@ function reminder_log( $p_user_id, $p_issue_id, $p_type ) {
 	);
 }
 
+/* -------------------------------------------------------------------------
+ * Pure decision helpers (no MantisBT/DB dependencies, easily unit-testable).
+ * ---------------------------------------------------------------------- */
+
 /**
- * Build a single line describing an issue for the plaintext digest.
+ * Whether the weekly digest is due at a given moment.
+ *
+ * @param integer $p_now       Current unix timestamp.
+ * @param integer $p_day       Configured weekday (0 = Sunday ... 6 = Saturday).
+ * @param integer $p_hour      Configured hour of day (0-23).
+ * @param integer $p_last_sent Unix timestamp of the last digest (0 = never).
+ * @return boolean
+ */
+function reminder_is_digest_due_at( $p_now, $p_day, $p_hour, $p_last_sent ) {
+	if( (int)date( 'w', $p_now ) !== (int)$p_day ) {
+		return false;
+	}
+	if( (int)date( 'G', $p_now ) < (int)$p_hour ) {
+		return false;
+	}
+	# Only one digest per ~day so re-runs of an hourly cron do not duplicate.
+	return ( $p_now - (int)$p_last_sent ) >= ( 20 * SECONDS_PER_HOUR );
+}
+
+/**
+ * Whether a single-ticket reminder is due for an issue.
+ *
+ * @param integer $p_now           Current unix timestamp.
+ * @param integer $p_last_sent     Last reminder for this issue (0 = never).
+ * @param integer $p_interval_days Minimum days between reminders.
+ * @param integer $p_stale_days    Only remind if untouched this many days (0 = always).
+ * @param integer $p_last_updated  Unix timestamp the issue was last updated.
+ * @return boolean
+ */
+function reminder_is_issue_due( $p_now, $p_last_sent, $p_interval_days, $p_stale_days, $p_last_updated ) {
+	if( $p_stale_days > 0 && ( $p_now - (int)$p_last_updated ) < $p_stale_days * SECONDS_PER_DAY ) {
+		return false;
+	}
+	return ( $p_now - (int)$p_last_sent ) >= $p_interval_days * SECONDS_PER_DAY;
+}
+
+/* -------------------------------------------------------------------------
+ * Rendering. Builders that resolve MantisBT data are separated from the
+ * pure renderers so the rendering (incl. HTML) can be unit-tested.
+ * ---------------------------------------------------------------------- */
+
+/**
+ * Resolve the display data for one issue into a flat, render-ready array.
  *
  * @param array   $p_bug     Bug row.
- * @param integer $p_user_id Recipient user id (for the FQDN link).
+ * @param integer $p_user_id Recipient user id (for the FQDN link & language).
+ * @return array Keys: id, url, project, priority, summary, age_days, overdue.
+ */
+function reminder_issue_view_data( array $p_bug, $p_user_id ) {
+	return array(
+		'id'        => (int)$p_bug['id'],
+		'url'       => string_get_bug_view_url_with_fqdn( (int)$p_bug['id'], $p_user_id ),
+		'project'   => project_get_name( $p_bug['project_id'] ),
+		'priority'  => get_enum_element( 'priority', $p_bug['priority'], $p_user_id ),
+		'summary'   => $p_bug['summary'],
+		'age_days'  => (int)floor( ( time() - (int)$p_bug['last_updated'] ) / SECONDS_PER_DAY ),
+		'overdue'   => ( !date_is_null( $p_bug['due_date'] ) && (int)$p_bug['due_date'] < time() ),
+	);
+}
+
+/**
+ * Plain-text rendering of a single issue.
+ *
+ * @param array $p_item Issue view data (see reminder_issue_view_data()).
  * @return string
  */
-function reminder_format_issue_line( array $p_bug, $p_user_id ) {
-	$t_id = (int)$p_bug['id'];
-	$t_url = string_get_bug_view_url_with_fqdn( $t_id, $p_user_id );
-	$t_project = project_get_name( $p_bug['project_id'] );
-	$t_priority = get_enum_element( 'priority', $p_bug['priority'], $p_user_id );
-
-	$t_days = (int)floor( ( time() - (int)$p_bug['last_updated'] ) / SECONDS_PER_DAY );
-	$t_age = sprintf( plugin_lang_get( 'issue_age_days' ), $t_days );
-
-	$t_overdue = '';
-	if( !date_is_null( $p_bug['due_date'] ) && (int)$p_bug['due_date'] < time() ) {
-		$t_overdue = ' ' . plugin_lang_get( 'issue_overdue' );
-	}
+function reminder_render_issue_text( array $p_item ) {
+	$t_overdue = $p_item['overdue'] ? ' ' . plugin_lang_get( 'issue_overdue' ) : '';
+	$t_age = sprintf( plugin_lang_get( 'issue_age_days' ), $p_item['age_days'] );
 
 	return sprintf( "#%d [%s] (%s) %s%s\n    %s\n    %s",
-		$t_id,
-		$t_project,
-		$t_priority,
-		$p_bug['summary'],
+		$p_item['id'],
+		$p_item['project'],
+		$p_item['priority'],
+		$p_item['summary'],
 		$t_overdue,
 		$t_age,
-		$t_url
+		$p_item['url']
 	);
+}
+
+/**
+ * HTML rendering of a single issue as a table row.
+ *
+ * @param array $p_item Issue view data (see reminder_issue_view_data()).
+ * @return string
+ */
+function reminder_render_issue_html( array $p_item ) {
+	$t_e = function( $p_text ) {
+		return htmlspecialchars( (string)$p_text, ENT_QUOTES, 'UTF-8' );
+	};
+
+	$t_overdue = '';
+	if( $p_item['overdue'] ) {
+		$t_overdue = ' <span style="color:#ffffff;background:#d9534f;border-radius:3px;'
+			. 'padding:1px 6px;font-size:11px;">' . $t_e( plugin_lang_get( 'issue_overdue' ) ) . '</span>';
+	}
+
+	$t_age = sprintf( plugin_lang_get( 'issue_age_days' ), $p_item['age_days'] );
+
+	return '<tr>'
+		. '<td style="padding:8px 10px;border-bottom:1px solid #eee;white-space:nowrap;vertical-align:top;">'
+		. '<a href="' . $t_e( $p_item['url'] ) . '" style="color:#1c6ea4;text-decoration:none;font-weight:bold;">#'
+		. $t_e( $p_item['id'] ) . '</a></td>'
+		. '<td style="padding:8px 10px;border-bottom:1px solid #eee;vertical-align:top;">'
+		. $t_e( $p_item['summary'] ) . $t_overdue
+		. '<div style="color:#888;font-size:12px;margin-top:2px;">' . $t_e( $p_item['project'] )
+		. ' &middot; ' . $t_e( $t_age ) . '</div></td>'
+		. '<td style="padding:8px 10px;border-bottom:1px solid #eee;white-space:nowrap;vertical-align:top;color:#555;">'
+		. $t_e( $p_item['priority'] ) . '</td>'
+		. '</tr>';
+}
+
+/**
+ * Wrap rendered issue rows / blocks into a complete HTML mail document.
+ *
+ * @param string $p_intro  Already-translated intro paragraph.
+ * @param string $p_rows   Concatenated reminder_render_issue_html() output.
+ * @param string $p_footer Already-translated footer text.
+ * @return string
+ */
+function reminder_render_html_document( $p_intro, $p_rows, $p_footer ) {
+	$t_e = function( $p_text ) {
+		return htmlspecialchars( (string)$p_text, ENT_QUOTES, 'UTF-8' );
+	};
+
+	return '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f4f4f4;">'
+		. '<div style="max-width:640px;margin:0 auto;padding:20px;font-family:'
+		. 'Helvetica,Arial,sans-serif;color:#333;font-size:14px;line-height:1.5;">'
+		. '<div style="background:#1c6ea4;color:#fff;padding:14px 18px;border-radius:6px 6px 0 0;'
+		. 'font-size:18px;font-weight:bold;">' . $t_e( plugin_lang_get( 'title' ) ) . '</div>'
+		. '<div style="background:#fff;padding:18px;border:1px solid #e5e5e5;border-top:0;">'
+		. '<p style="margin:0 0 14px;">' . nl2br( $t_e( $p_intro ) ) . '</p>'
+		. '<table style="width:100%;border-collapse:collapse;font-size:14px;">' . $p_rows . '</table>'
+		. '</div>'
+		. '<div style="color:#999;font-size:12px;padding:12px 4px;">' . nl2br( $t_e( $p_footer ) ) . '</div>'
+		. '</div></body></html>';
+}
+
+/**
+ * Send a mail either as styled HTML (with a plain-text alternative) or as a
+ * plain-text mail through the MantisBT mail queue.
+ *
+ * @param string $p_to      Recipient e-mail address.
+ * @param string $p_subject Subject line.
+ * @param string $p_html    HTML body.
+ * @param string $p_text    Plain-text body (also used as HTML alt body).
+ * @param string $p_format  'html' or 'text'.
+ * @return boolean True on success / queued.
+ */
+function reminder_send_mail( $p_to, $p_subject, $p_html, $p_text, $p_format ) {
+	if( $p_format !== 'html' ) {
+		email_store( $p_to, $p_subject, $p_text );
+		return true;
+	}
+
+	$t_class = null;
+	if( class_exists( 'PHPMailer\\PHPMailer\\PHPMailer' ) ) {
+		$t_class = 'PHPMailer\\PHPMailer\\PHPMailer';
+	} else if( class_exists( 'PHPMailer' ) ) {
+		$t_class = 'PHPMailer';
+	}
+
+	if( $t_class === null ) {
+		# PHPMailer not available - fall back to the plain-text queue.
+		email_store( $p_to, $p_subject, $p_text );
+		return true;
+	}
+
+	try {
+		$t_mail = new $t_class( true );
+		$t_mail->CharSet = 'UTF-8';
+
+		switch( config_get( 'phpMailer_method' ) ) {
+			case PHPMAILER_METHOD_SENDMAIL:
+				$t_mail->IsSendmail();
+				break;
+			case PHPMAILER_METHOD_SMTP:
+				$t_mail->IsSMTP();
+				$t_mail->Host = config_get( 'smtp_host' );
+				$t_username = config_get( 'smtp_username' );
+				if( !is_blank( $t_username ) ) {
+					$t_mail->SMTPAuth = true;
+					$t_mail->Username = $t_username;
+					$t_mail->Password = config_get( 'smtp_password' );
+				}
+				$t_secure = config_get( 'smtp_connection_mode' );
+				if( !is_blank( $t_secure ) ) {
+					$t_mail->SMTPSecure = $t_secure;
+				}
+				$t_mail->Port = config_get( 'smtp_port' );
+				break;
+			default:
+				$t_mail->IsMail();
+		}
+
+		$t_mail->setFrom( config_get( 'from_email' ), config_get( 'from_name' ) );
+		$t_mail->Sender = config_get( 'return_path_email' );
+		$t_mail->addAddress( $p_to );
+		$t_mail->Subject = $p_subject;
+		$t_mail->isHTML( true );
+		$t_mail->Body = $p_html;
+		$t_mail->AltBody = $p_text;
+		$t_mail->send();
+		return true;
+	} catch( \Exception $e ) {
+		# On any sending error, fall back to the queued plain-text mail.
+		email_store( $p_to, $p_subject, $p_text );
+		return true;
+	}
 }
 
 /**
@@ -251,18 +436,24 @@ function reminder_send_digest( $p_user_id, array $p_issues ) {
 
 	$t_count = count( $p_issues );
 	$t_subject = sprintf( plugin_lang_get( 'digest_subject' ), $t_count );
+	$t_intro = sprintf( plugin_lang_get( 'digest_intro' ), user_get_name( $p_user_id ), $t_count );
+	$t_footer = plugin_lang_get( 'mail_footer' );
 
-	$t_lines = array();
-	$t_lines[] = sprintf( plugin_lang_get( 'digest_intro' ), user_get_name( $p_user_id ), $t_count );
-	$t_lines[] = '';
+	$t_text_lines = array( $t_intro, '' );
+	$t_html_rows = '';
 	foreach( $p_issues as $t_bug ) {
-		$t_lines[] = reminder_format_issue_line( $t_bug, $p_user_id );
-		$t_lines[] = '';
+		$t_item = reminder_issue_view_data( $t_bug, $p_user_id );
+		$t_text_lines[] = reminder_render_issue_text( $t_item );
+		$t_text_lines[] = '';
+		$t_html_rows .= reminder_render_issue_html( $t_item );
 	}
-	$t_lines[] = plugin_lang_get( 'mail_footer' );
-	$t_body = implode( "\n", $t_lines );
+	$t_text_lines[] = $t_footer;
 
-	email_store( $t_email, $t_subject, $t_body );
+	$t_text = implode( "\n", $t_text_lines );
+	$t_html = reminder_render_html_document( $t_intro, $t_html_rows, $t_footer );
+
+	$t_format = reminder_user_config( $p_user_id, 'email_format' );
+	reminder_send_mail( $t_email, $t_subject, $t_html, $t_text, $t_format );
 
 	lang_pop();
 	return true;
@@ -285,18 +476,18 @@ function reminder_send_issue( $p_user_id, array $p_bug ) {
 	lang_push( $t_lang );
 
 	$t_id = (int)$p_bug['id'];
-	$t_subject = sprintf( plugin_lang_get( 'issue_subject' ), $t_id,
-		$p_bug['summary'] );
+	$t_subject = sprintf( plugin_lang_get( 'issue_subject' ), $t_id, $p_bug['summary'] );
+	$t_intro = sprintf( plugin_lang_get( 'issue_intro' ), user_get_name( $p_user_id ) );
+	$t_footer = plugin_lang_get( 'mail_footer' );
 
-	$t_lines = array();
-	$t_lines[] = sprintf( plugin_lang_get( 'issue_intro' ), user_get_name( $p_user_id ) );
-	$t_lines[] = '';
-	$t_lines[] = reminder_format_issue_line( $p_bug, $p_user_id );
-	$t_lines[] = '';
-	$t_lines[] = plugin_lang_get( 'mail_footer' );
-	$t_body = implode( "\n", $t_lines );
+	$t_item = reminder_issue_view_data( $p_bug, $p_user_id );
 
-	email_store( $t_email, $t_subject, $t_body );
+	$t_text = implode( "\n", array(
+		$t_intro, '', reminder_render_issue_text( $t_item ), '', $t_footer ) );
+	$t_html = reminder_render_html_document( $t_intro, reminder_render_issue_html( $t_item ), $t_footer );
+
+	$t_format = reminder_user_config( $p_user_id, 'email_format' );
+	reminder_send_mail( $t_email, $t_subject, $t_html, $t_text, $t_format );
 
 	lang_pop();
 	return true;
@@ -317,14 +508,9 @@ function reminder_digest_due( $p_user_id, $p_force ) {
 
 	$t_day  = (int)reminder_user_config( $p_user_id, 'digest_day' );
 	$t_hour = (int)reminder_user_config( $p_user_id, 'digest_hour' );
-
-	if( (int)date( 'w' ) !== $t_day || (int)date( 'G' ) < $t_hour ) {
-		return false;
-	}
-
-	# Only one digest per ~day, so re-runs of an hourly cron do not duplicate.
 	$t_last = reminder_last_sent( $p_user_id, 0, 'digest' );
-	return ( time() - $t_last ) >= ( 20 * SECONDS_PER_HOUR );
+
+	return reminder_is_digest_due_at( time(), $t_day, $t_hour, $t_last );
 }
 
 /**
@@ -373,8 +559,8 @@ function reminder_process_issues( $p_user_id ) {
 		return 0;
 	}
 
-	$t_interval = (int)reminder_user_config( $p_user_id, 'per_issue_interval_days' ) * SECONDS_PER_DAY;
-	$t_stale    = (int)reminder_user_config( $p_user_id, 'per_issue_stale_days' ) * SECONDS_PER_DAY;
+	$t_interval_days = (int)reminder_user_config( $p_user_id, 'per_issue_interval_days' );
+	$t_stale_days    = (int)reminder_user_config( $p_user_id, 'per_issue_stale_days' );
 
 	$t_issues = reminder_open_issues(
 		$p_user_id,
@@ -386,14 +572,10 @@ function reminder_process_issues( $p_user_id ) {
 	$t_sent = 0;
 	foreach( $t_issues as $t_bug ) {
 		$t_id = (int)$t_bug['id'];
-
-		# Skip tickets with recent activity when a staleness window is set.
-		if( $t_stale > 0 && ( time() - (int)$t_bug['last_updated'] ) < $t_stale ) {
-			continue;
-		}
-
 		$t_last = reminder_last_sent( $p_user_id, $t_id, 'issue' );
-		if( ( time() - $t_last ) < $t_interval ) {
+
+		if( !reminder_is_issue_due( time(), $t_last, $t_interval_days, $t_stale_days,
+				(int)$t_bug['last_updated'] ) ) {
 			continue;
 		}
 

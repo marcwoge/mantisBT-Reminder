@@ -35,6 +35,9 @@ plugin_config_set( 'per_issue_interval_days', max( 1, gpc_get_int( 'per_issue_in
 plugin_config_set( 'per_issue_stale_days', max( 0, gpc_get_int( 'per_issue_stale_days', 0 ) ) );
 
 # String values
+$t_format = gpc_get_string( 'email_format', 'html' );
+plugin_config_set( 'email_format', $t_format === 'text' ? 'text' : 'html' );
+
 $t_threshold = trim( gpc_get_string( 'open_status_threshold', '' ) );
 plugin_config_set( 'open_status_threshold', is_numeric( $t_threshold ) ? (int)$t_threshold : '' );
 plugin_config_set( 'cron_token', trim( gpc_get_string( 'cron_token', '' ) ) );

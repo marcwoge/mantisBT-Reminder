@@ -113,6 +113,16 @@ $t_action = plugin_page( 'config_edit' );
 
 		<tr><td class="category" colspan="2"><strong><?php echo plugin_lang_get( 'general_section' ); ?></strong></td></tr>
 		<tr>
+			<td class="category"><?php echo plugin_lang_get( 'email_format' ); ?></td>
+			<td>
+				<select name="email_format">
+					<?php $t_fmt = plugin_config_get( 'email_format' ); ?>
+					<option value="html"<?php echo check_selected( $t_fmt, 'html' ); ?>><?php echo plugin_lang_get( 'email_format_html' ); ?></option>
+					<option value="text"<?php echo check_selected( $t_fmt, 'text' ); ?>><?php echo plugin_lang_get( 'email_format_text' ); ?></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
 			<td class="category"><?php echo plugin_lang_get( 'open_status_threshold' ); ?></td>
 			<td><input type="text" name="open_status_threshold" size="6"
 				value="<?php echo string_attribute( plugin_config_get( 'open_status_threshold' ) ); ?>">
