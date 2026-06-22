@@ -16,9 +16,18 @@ die Versionierung an [Semantic Versioning](https://semver.org/).
   Datenbank oder Webserver laufen (MantisBT-Stubs in `tests/stubs.php`).
 - GitHub-Actions-Pipeline, die Lint + Tests auf PHP 7.4–8.3 ausführt.
 
+- Komplette lokale Testumgebung unter `docker/` (MantisBT 2.28.3 + MariaDB +
+  Mailpit), inkl. eingehängtem Plugin und Schritt-für-Schritt-Anleitung.
+
 ### Geändert
 - Kernlogik in reine, testbare Funktionen aufgeteilt
   (`reminder_is_digest_due_at()`, `reminder_is_issue_due()`, Render-Funktionen).
+
+### Behoben
+- Verwendung der in MantisBT nicht existierenden Konstante `SECONDS_PER_HOUR`
+  in der Zeitplanprüfung (führte beim regulären Cron-Lauf zu einem Fehler).
+  Beim End-to-End-Test in echtem MantisBT gefunden; die Test-Stubs spiegeln nun
+  die real vorhandenen Konstanten wider.
 
 ## [1.0.0] - 2026-06-08
 

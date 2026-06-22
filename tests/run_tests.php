@@ -60,7 +60,7 @@ check( 'not due before the configured hour',
 check( 'not due on a different weekday',
 	reminder_is_digest_due_at( $t_mon9, $t_other_day, 9, 0 ) === false );
 check( 'not due again a few hours after the last digest',
-	reminder_is_digest_due_at( $t_mon9, $t_dow, 9, $t_mon9 - 2 * SECONDS_PER_HOUR ) === false );
+	reminder_is_digest_due_at( $t_mon9, $t_dow, 9, $t_mon9 - 2 * 3600 ) === false );
 check( 'due again a week after the last digest',
 	reminder_is_digest_due_at( $t_mon9, $t_dow, 9, $t_mon9 - 7 * SECONDS_PER_DAY ) === true );
 

@@ -15,8 +15,10 @@ if( !defined( 'ON' ) )                { define( 'ON', 1 ); }
 if( !defined( 'OFF' ) )               { define( 'OFF', 0 ); }
 if( !defined( 'ALL_PROJECTS' ) )      { define( 'ALL_PROJECTS', 0 ); }
 if( !defined( 'RESOLVED' ) )          { define( 'RESOLVED', 80 ); }
+# NOTE: MantisBT only defines SECONDS_PER_DAY (not SECONDS_PER_HOUR / _MINUTE).
+# We deliberately mirror that here so the tests catch any reliance on
+# constants that do not exist in a real MantisBT installation.
 if( !defined( 'SECONDS_PER_DAY' ) )   { define( 'SECONDS_PER_DAY', 86400 ); }
-if( !defined( 'SECONDS_PER_HOUR' ) )  { define( 'SECONDS_PER_HOUR', 3600 ); }
 
 # --- MantisBT functions used at include time / inside tested functions ----
 

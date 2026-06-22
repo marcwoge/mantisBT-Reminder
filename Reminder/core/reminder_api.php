@@ -222,7 +222,8 @@ function reminder_is_digest_due_at( $p_now, $p_day, $p_hour, $p_last_sent ) {
 		return false;
 	}
 	# Only one digest per ~day so re-runs of an hourly cron do not duplicate.
-	return ( $p_now - (int)$p_last_sent ) >= ( 20 * SECONDS_PER_HOUR );
+	# (MantisBT defines SECONDS_PER_DAY but not SECONDS_PER_HOUR.)
+	return ( $p_now - (int)$p_last_sent ) >= ( 20 * 3600 );
 }
 
 /**

@@ -172,6 +172,28 @@ Webserver** laufen – die nötigen MantisBT-Funktionen werden durch Stubs erset
 Der Runner gibt am Ende `Passed: N  Failed: 0` aus und liefert bei Fehlern den
 Exit-Code 1 (CI-tauglich).
 
+## Ausprobieren mit Docker (ohne eigene MantisBT-Installation)
+
+Im Ordner [`docker/`](docker/) liegt eine komplett lauffähige Testumgebung
+(MantisBT + MariaDB + Mailpit als Mail-Catcher). Das Plugin ist dort bereits
+eingehängt.
+
+```bash
+docker compose up -d --build
+```
+
+* MantisBT: http://localhost:8989 (`administrator` / `root`)
+* Mailpit (zeigt alle E-Mails): http://localhost:8025
+
+Versand zum Testen auslösen:
+
+```bash
+docker compose exec mantis php plugins/Reminder/cron/reminder_cron.php force-digest
+```
+
+Die vollständige Schritt-für-Schritt-Anleitung steht in
+[docker/README.md](docker/README.md).
+
 ## Kompatibilität
 
 * MantisBT **2.0.0** oder neuer
