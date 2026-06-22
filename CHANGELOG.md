@@ -4,7 +4,7 @@ Alle nennenswerten Änderungen an diesem Projekt werden hier dokumentiert.
 Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/),
 die Versionierung an [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.1.0] - 2026-06-22
 
 ### Hinzugefügt
 - **HTML-E-Mails** mit kleiner Übersichtstabelle und Überfällig-Markierung;
@@ -12,10 +12,14 @@ die Versionierung an [Semantic Versioning](https://semver.org/).
   pro Benutzer.
 - Versand der HTML-Mails direkt über PHPMailer/SMTP von MantisBT, mit
   automatischem Rückfall auf die Text-Mail-Warteschlange bei Fehlern.
+- **Mehrsprachigkeit**: zusätzliche Sprachdateien für Französisch, Spanisch und
+  Italienisch (zuvor nur Englisch/Deutsch). MantisBT wählt automatisch die
+  Sprache des Empfängers, Fallback Englisch.
+- Englische README als Standard (`README.md`) plus deutsche Version
+  (`README.de.md`) mit Sprach-Umschalter.
 - Abhängigkeitsfreie Unit-Tests (`tests/run_tests.php`), die ohne MantisBT,
   Datenbank oder Webserver laufen (MantisBT-Stubs in `tests/stubs.php`).
 - GitHub-Actions-Pipeline, die Lint + Tests auf PHP 7.4–8.3 ausführt.
-
 - Komplette lokale Testumgebung unter `docker/` (MantisBT 2.28.3 + MariaDB +
   Mailpit), inkl. eingehängtem Plugin und Schritt-für-Schritt-Anleitung.
 

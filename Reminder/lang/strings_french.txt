@@ -1,0 +1,54 @@
+<?php
+# MantisBT - Open Ticket Reminder Plugin - Fichier de langue français
+
+$s_plugin_Reminder_title = 'Rappel des tickets ouverts';
+$s_plugin_Reminder_description = 'Rappelle aux utilisateurs leurs tickets ouverts : un récapitulatif configurable (hebdomadaire, le lundi à 09h00 par défaut) ainsi que des rappels individuels optionnels à intervalle fixe.';
+
+# Menus / titres de page
+$s_plugin_Reminder_account_menu = 'Paramètres de rappel';
+$s_plugin_Reminder_account_title = 'Mes paramètres de rappel';
+$s_plugin_Reminder_config_title = 'Configuration : Rappel des tickets ouverts';
+
+# Sections
+$s_plugin_Reminder_digest_section = 'Récapitulatif hebdomadaire';
+$s_plugin_Reminder_per_issue_section = 'Rappels par ticket';
+$s_plugin_Reminder_general_section = 'Général';
+
+# Options
+$s_plugin_Reminder_enabled = 'Extension activée';
+$s_plugin_Reminder_digest_enabled = 'Envoyer le récapitulatif';
+$s_plugin_Reminder_digest_day = 'Jour de la semaine';
+$s_plugin_Reminder_digest_hour = 'Heure de la journée (0-23)';
+$s_plugin_Reminder_digest_skip_empty = 'Ne pas envoyer si aucun ticket ouvert';
+$s_plugin_Reminder_include_assigned = 'Inclure les tickets qui me sont assignés';
+$s_plugin_Reminder_include_reported = 'Inclure les tickets que j\'ai signalés';
+$s_plugin_Reminder_include_monitored = 'Inclure les tickets que je surveille';
+$s_plugin_Reminder_per_issue_enabled = 'Envoyer des rappels par ticket';
+$s_plugin_Reminder_per_issue_interval_days = 'Rappeler un ticket tous les N jours';
+$s_plugin_Reminder_per_issue_stale_days = 'Seulement si inchangé depuis N jours (0 = toujours)';
+$s_plugin_Reminder_email_format = 'Format des e-mails';
+$s_plugin_Reminder_email_format_html = 'HTML (mise en forme soignée)';
+$s_plugin_Reminder_email_format_text = 'Texte brut';
+$s_plugin_Reminder_open_status_threshold = 'Seuil de statut « ouvert »';
+$s_plugin_Reminder_open_status_threshold_hint = 'Laisser vide pour utiliser le seuil « résolu » standard.';
+$s_plugin_Reminder_cron_token = 'Jeton du cron web';
+$s_plugin_Reminder_cron_token_hint = 'Secret pour plugin.php?page=Reminder/cron&token=... (laisser vide pour désactiver le point d\'accès web).';
+$s_plugin_Reminder_save = 'Enregistrer';
+
+# Jours de la semaine (0 = dimanche)
+$s_plugin_Reminder_weekday_0 = 'Dimanche';
+$s_plugin_Reminder_weekday_1 = 'Lundi';
+$s_plugin_Reminder_weekday_2 = 'Mardi';
+$s_plugin_Reminder_weekday_3 = 'Mercredi';
+$s_plugin_Reminder_weekday_4 = 'Jeudi';
+$s_plugin_Reminder_weekday_5 = 'Vendredi';
+$s_plugin_Reminder_weekday_6 = 'Samedi';
+
+# Contenu des e-mails
+$s_plugin_Reminder_digest_subject = 'Rappel : vous avez %d ticket(s) ouvert(s)';
+$s_plugin_Reminder_digest_intro = 'Bonjour %1$s,' . "\n\n" . 'ces %2$d ticket(s) sont toujours ouverts et vous attendent :';
+$s_plugin_Reminder_issue_subject = 'Rappel pour le ticket #%1$d : %2$s';
+$s_plugin_Reminder_issue_intro = 'Bonjour %s,' . "\n\n" . 'ce ticket est toujours ouvert :';
+$s_plugin_Reminder_issue_age_days = 'mis à jour il y a %d jour(s)';
+$s_plugin_Reminder_issue_overdue = '[EN RETARD]';
+$s_plugin_Reminder_mail_footer = '--' . "\n" . 'Vous recevez ce message en raison de vos paramètres de rappel. Vous pouvez les modifier ou les désactiver dans MantisBT sous Mon compte > Paramètres de rappel.';

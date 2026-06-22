@@ -1,0 +1,54 @@
+<?php
+# MantisBT - Open Ticket Reminder Plugin - File di lingua italiano
+
+$s_plugin_Reminder_title = 'Promemoria ticket aperti';
+$s_plugin_Reminder_description = 'Ricorda agli utenti i loro ticket aperti: un riepilogo configurabile (settimanale, il lunedì alle 09:00 per impostazione predefinita) e promemoria singoli opzionali a intervalli fissi.';
+
+# Menu / titoli di pagina
+$s_plugin_Reminder_account_menu = 'Impostazioni promemoria';
+$s_plugin_Reminder_account_title = 'Le mie impostazioni promemoria';
+$s_plugin_Reminder_config_title = 'Configurazione: Promemoria ticket aperti';
+
+# Sezioni
+$s_plugin_Reminder_digest_section = 'Riepilogo settimanale';
+$s_plugin_Reminder_per_issue_section = 'Promemoria per singolo ticket';
+$s_plugin_Reminder_general_section = 'Generale';
+
+# Opzioni
+$s_plugin_Reminder_enabled = 'Plugin attivo';
+$s_plugin_Reminder_digest_enabled = 'Invia riepilogo';
+$s_plugin_Reminder_digest_day = 'Giorno della settimana';
+$s_plugin_Reminder_digest_hour = 'Ora del giorno (0-23)';
+$s_plugin_Reminder_digest_skip_empty = 'Non inviare se non ci sono ticket aperti';
+$s_plugin_Reminder_include_assigned = 'Includi i ticket assegnati a me';
+$s_plugin_Reminder_include_reported = 'Includi i ticket da me segnalati';
+$s_plugin_Reminder_include_monitored = 'Includi i ticket che seguo';
+$s_plugin_Reminder_per_issue_enabled = 'Invia promemoria per singolo ticket';
+$s_plugin_Reminder_per_issue_interval_days = 'Ricorda un ticket ogni N giorni';
+$s_plugin_Reminder_per_issue_stale_days = 'Solo se inalterato da N giorni (0 = sempre)';
+$s_plugin_Reminder_email_format = 'Formato e-mail';
+$s_plugin_Reminder_email_format_html = 'HTML (ben formattato)';
+$s_plugin_Reminder_email_format_text = 'Testo semplice';
+$s_plugin_Reminder_open_status_threshold = 'Soglia di stato «aperto»';
+$s_plugin_Reminder_open_status_threshold_hint = 'Lasciare vuoto per usare la soglia «risolto» standard.';
+$s_plugin_Reminder_cron_token = 'Token cron web';
+$s_plugin_Reminder_cron_token_hint = 'Segreto per plugin.php?page=Reminder/cron&token=... (lasciare vuoto per disattivare l\'endpoint web).';
+$s_plugin_Reminder_save = 'Salva';
+
+# Giorni della settimana (0 = domenica)
+$s_plugin_Reminder_weekday_0 = 'Domenica';
+$s_plugin_Reminder_weekday_1 = 'Lunedì';
+$s_plugin_Reminder_weekday_2 = 'Martedì';
+$s_plugin_Reminder_weekday_3 = 'Mercoledì';
+$s_plugin_Reminder_weekday_4 = 'Giovedì';
+$s_plugin_Reminder_weekday_5 = 'Venerdì';
+$s_plugin_Reminder_weekday_6 = 'Sabato';
+
+# Contenuto delle e-mail
+$s_plugin_Reminder_digest_subject = 'Promemoria: hai %d ticket aperti';
+$s_plugin_Reminder_digest_intro = 'Ciao %1$s,' . "\n\n" . 'questi %2$d ticket sono ancora aperti e ti aspettano:';
+$s_plugin_Reminder_issue_subject = 'Promemoria per il ticket #%1$d: %2$s';
+$s_plugin_Reminder_issue_intro = 'Ciao %s,' . "\n\n" . 'questo ticket è ancora aperto:';
+$s_plugin_Reminder_issue_age_days = 'aggiornato %d giorno/i fa';
+$s_plugin_Reminder_issue_overdue = '[SCADUTO]';
+$s_plugin_Reminder_mail_footer = '--' . "\n" . 'Ricevi questo messaggio in base alle tue impostazioni dei promemoria. Puoi modificarle o disattivarle in MantisBT sotto Il mio account > Impostazioni promemoria.';
