@@ -29,6 +29,9 @@ $s_plugin_Reminder_per_issue_stale_days = 'Only if untouched for N days (0 = alw
 $s_plugin_Reminder_email_format = 'E-mail format';
 $s_plugin_Reminder_email_format_html = 'HTML (nicely formatted)';
 $s_plugin_Reminder_email_format_text = 'Plain text';
+$s_plugin_Reminder_excluded_projects = 'Excluded projects';
+$s_plugin_Reminder_excluded_projects_hint = 'No reminders are sent for tickets in the selected projects. Hold Ctrl/Cmd to select several.';
+$s_plugin_Reminder_excluded_projects_user_hint = 'Additionally exclude these projects for yourself. Projects excluded globally by the administrator are always off and not listed here.';
 $s_plugin_Reminder_open_status_threshold = 'Open status threshold';
 $s_plugin_Reminder_open_status_threshold_hint = 'Leave empty to use the standard "resolved" threshold.';
 $s_plugin_Reminder_cron_token = 'Web cron token';

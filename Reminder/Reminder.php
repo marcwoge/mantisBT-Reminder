@@ -29,7 +29,7 @@ class ReminderPlugin extends MantisPlugin {
 		$this->description  = plugin_lang_get( 'description' );
 		$this->page         = 'config';
 
-		$this->version  = '1.1.0';
+		$this->version  = '1.2.0';
 		$this->requires  = array(
 			'MantisCore' => '2.0.0',
 		);
@@ -76,6 +76,8 @@ class ReminderPlugin extends MantisPlugin {
 			# --- general ----------------------------------------------------
 			# E-mail format: 'html' (styled) or 'text' (plain, via mail queue)
 			'email_format'              => 'html',
+			# Project ids excluded from reminders (empty = all projects included)
+			'excluded_projects'         => array(),
 			# Status threshold below which an issue counts as "open".
 			# Empty means: use the standard "bug_resolved_status_threshold".
 			'open_status_threshold'     => '',

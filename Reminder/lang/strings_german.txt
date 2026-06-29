@@ -29,6 +29,9 @@ $s_plugin_Reminder_per_issue_stale_days = 'Nur wenn N Tage unverändert (0 = imm
 $s_plugin_Reminder_email_format = 'E-Mail-Format';
 $s_plugin_Reminder_email_format_html = 'HTML (ansprechend formatiert)';
 $s_plugin_Reminder_email_format_text = 'Reiner Text';
+$s_plugin_Reminder_excluded_projects = 'Ausgeschlossene Projekte';
+$s_plugin_Reminder_excluded_projects_hint = 'Für Tickets in den ausgewählten Projekten werden keine Erinnerungen versendet. Mehrfachauswahl mit Strg/Cmd.';
+$s_plugin_Reminder_excluded_projects_user_hint = 'Diese Projekte zusätzlich für dich ausschließen. Vom Administrator global ausgeschlossene Projekte sind immer aus und werden hier nicht aufgeführt.';
 $s_plugin_Reminder_open_status_threshold = 'Statusschwelle „offen“';
 $s_plugin_Reminder_open_status_threshold_hint = 'Leer lassen, um die Standardschwelle „erledigt“ zu verwenden.';
 $s_plugin_Reminder_cron_token = 'Web-Cron-Token';

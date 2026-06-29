@@ -34,6 +34,9 @@ plugin_config_set( 'digest_hour', min( 23, max( 0, gpc_get_int( 'digest_hour', 9
 plugin_config_set( 'per_issue_interval_days', max( 1, gpc_get_int( 'per_issue_interval_days', 7 ) ) );
 plugin_config_set( 'per_issue_stale_days', max( 0, gpc_get_int( 'per_issue_stale_days', 0 ) ) );
 
+# Project exclusions (list of project ids)
+plugin_config_set( 'excluded_projects', gpc_get_int_array( 'excluded_projects', array() ) );
+
 # String values
 $t_format = gpc_get_string( 'email_format', 'html' );
 plugin_config_set( 'email_format', $t_format === 'text' ? 'text' : 'html' );

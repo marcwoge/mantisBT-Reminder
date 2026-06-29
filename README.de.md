@@ -11,6 +11,8 @@ Ein MantisBT-Plugin, das Benutzer an ihre **offenen Tickets** erinnert.
   (z. B. „alle X Tage erinnere mich an dieses offene Ticket“).
 * **Pro Benutzer einstellbar** – jeder kann die globalen Vorgaben des
   Administrators für sich überschreiben oder die Erinnerungen abschalten.
+* **Projekt-Filter** – ganze Projekte, die keine Erinnerung benötigen,
+  ausschließen – global und zusätzlich pro Benutzer.
 * **Ansprechende HTML-Mails** (mit reinem Text als Fallback) oder wahlweise
   reine Text-Mails.
 * **Mehrsprachig** – Englisch, Deutsch, Französisch, Spanisch und Italienisch,
@@ -133,6 +135,19 @@ Jeder Benutzer findet unter **Mein Konto → Erinnerungs-Einstellungen** seine
 persönlichen Optionen. Werte, die hier gesetzt werden, überschreiben die
 globalen Admin-Vorgaben; alles andere wird weiterhin von den globalen Vorgaben
 geerbt.
+
+## Projekt-Filter
+
+Manche Projekte benötigen keine Erinnerungen. Du kannst sie ausschließen:
+
+* **Global (Admin)** – auf der Plugin-Konfigurationsseite die auszuschließenden
+  Projekte auswählen. Für Tickets in diesen Projekten werden für niemanden
+  Erinnerungen versendet.
+* **Pro Benutzer** – unter *Mein Konto → Erinnerungs-Einstellungen* kann jeder
+  Benutzer zusätzlich weitere Projekte nur für sich ausschließen. Global bereits
+  ausgeschlossene Projekte sind immer aus und werden dort nicht aufgeführt.
+
+Der effektive Ausschluss ist die Kombination beider Listen.
 
 ---
 

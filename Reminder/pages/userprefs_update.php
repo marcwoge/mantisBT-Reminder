@@ -36,6 +36,10 @@ reminder_user_config_set( $t_user_id, 'per_issue_stale_days',
 $t_format = gpc_get_string( 'email_format', 'html' );
 reminder_user_config_set( $t_user_id, 'email_format', $t_format === 'text' ? 'text' : 'html' );
 
+# Personal project exclusions (globally excluded projects are not offered).
+reminder_user_config_set( $t_user_id, 'excluded_projects',
+	gpc_get_int_array( 'excluded_projects', array() ) );
+
 form_security_purge( 'plugin_Reminder_userprefs_update' );
 
 print_successful_redirect( plugin_page( 'userprefs', true ) );

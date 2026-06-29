@@ -10,6 +10,8 @@ A MantisBT plugin that reminds users about their **open tickets**.
   (e.g. “remind me about this open ticket every X days”).
 * **Configurable per user** – everyone can override the administrator’s global
   defaults or switch the reminders off entirely.
+* **Per-project filtering** – exclude whole projects that don’t need reminders,
+  globally and additionally per user.
 * **Nicely formatted HTML mails** (with a plain-text fallback) or plain-text
   mails if you prefer.
 * **Multilingual** – English, German, French, Spanish and Italian, picked
@@ -128,6 +130,19 @@ Without a valid token the endpoint replies with `403 Forbidden`.
 Every user finds their personal options under **My Account → Reminder
 settings**. Values set there override the global admin defaults; everything
 else keeps inheriting the global defaults.
+
+## Project filtering
+
+Some projects simply don’t need reminders. You can exclude them:
+
+* **Globally (admin)** – on the plugin configuration page, select the projects
+  to exclude. No reminders are ever sent for tickets in those projects, for any
+  user.
+* **Per user** – on *My Account → Reminder settings*, each user can additionally
+  exclude further projects just for themselves. Projects already excluded
+  globally are always off and are not listed there.
+
+The effective exclusion is the combination of both lists.
 
 ---
 

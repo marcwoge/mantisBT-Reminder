@@ -4,6 +4,16 @@ Alle nennenswerten Änderungen an diesem Projekt werden hier dokumentiert.
 Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/),
 die Versionierung an [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-06-29
+
+### Hinzugefügt
+- **Projekt-Filter**: Projekte lassen sich von den Erinnerungen ausschließen –
+  global durch den Administrator und zusätzlich persönlich pro Benutzer. Tickets
+  aus ausgeschlossenen Projekten erscheinen weder in der Übersicht noch in den
+  Einzel-Erinnerungen. Global ausgeschlossene Projekte sind für alle aus; jeder
+  Benutzer kann weitere Projekte für sich ausschließen.
+- Neue reine, getestete Filterfunktion `reminder_filter_excluded()`.
+
 ## [1.1.0] - 2026-06-22
 
 ### Hinzugefügt

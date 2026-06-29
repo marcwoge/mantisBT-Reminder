@@ -83,6 +83,32 @@ check( 'staleness window allows long-untouched tickets',
 	reminder_is_issue_due( $t_now, 0, 7, 5, $t_now - 10 * SECONDS_PER_DAY ) === true );
 
 /* =========================================================================
+ * 2b. Project exclusion filter
+ * ====================================================================== */
+group( 'reminder_filter_excluded()' );
+
+$t_proj_issues = array(
+	10 => array( 'id' => 10, 'project_id' => 1 ),
+	11 => array( 'id' => 11, 'project_id' => 2 ),
+	12 => array( 'id' => 12, 'project_id' => 3 ),
+);
+
+check_eq( 'no exclusions keeps everything', 3,
+	count( reminder_filter_excluded( $t_proj_issues, array() ) ) );
+
+$t_filtered = reminder_filter_excluded( $t_proj_issues, array( 2 ) );
+check_eq( 'one excluded project removes one issue', 2, count( $t_filtered ) );
+check( 'the excluded issue is gone', !isset( $t_filtered[11] ) );
+check( 'other issues remain', isset( $t_filtered[10] ) && isset( $t_filtered[12] ) );
+
+$t_filtered2 = reminder_filter_excluded( $t_proj_issues, array( 1, 3 ) );
+check_eq( 'multiple excluded projects', 1, count( $t_filtered2 ) );
+check( 'only the non-excluded project remains', isset( $t_filtered2[11] ) );
+
+check_eq( 'string project ids are coerced to int', 2,
+	count( reminder_filter_excluded( $t_proj_issues, array( '2' ) ) ) );
+
+/* =========================================================================
  * 3. Plain-text issue rendering
  * ====================================================================== */
 group( 'reminder_render_issue_text()' );

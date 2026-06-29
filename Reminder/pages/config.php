@@ -123,6 +123,21 @@ $t_action = plugin_page( 'config_edit' );
 			</td>
 		</tr>
 		<tr>
+			<td class="category"><?php echo plugin_lang_get( 'excluded_projects' ); ?></td>
+			<td>
+				<?php $t_excluded = plugin_config_get( 'excluded_projects' );
+					if( !is_array( $t_excluded ) ) { $t_excluded = array(); }
+					$t_excluded = array_map( 'intval', $t_excluded );
+					$t_projects = reminder_all_projects(); ?>
+				<select name="excluded_projects[]" multiple="multiple" size="<?php echo min( 8, max( 3, count( $t_projects ) ) ); ?>">
+					<?php foreach( $t_projects as $t_pid => $t_pname ) { ?>
+						<option value="<?php echo $t_pid; ?>"<?php echo in_array( $t_pid, $t_excluded, true ) ? ' selected="selected"' : ''; ?>><?php echo string_attribute( $t_pname ); ?></option>
+					<?php } ?>
+				</select>
+				<div class="lighter"><?php echo plugin_lang_get( 'excluded_projects_hint' ); ?></div>
+			</td>
+		</tr>
+		<tr>
 			<td class="category"><?php echo plugin_lang_get( 'open_status_threshold' ); ?></td>
 			<td><input type="text" name="open_status_threshold" size="6"
 				value="<?php echo string_attribute( plugin_config_get( 'open_status_threshold' ) ); ?>">
