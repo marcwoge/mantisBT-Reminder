@@ -136,13 +136,13 @@ else keeps inheriting the global defaults.
 Some projects simply don’t need reminders. You can exclude them:
 
 * **Globally (admin)** – on the plugin configuration page, select the projects
-  to exclude. No reminders are ever sent for tickets in those projects, for any
-  user.
-* **Per user** – on *My Account → Reminder settings*, each user can additionally
-  exclude further projects just for themselves. Projects already excluded
-  globally are always off and are not listed there.
+  to exclude. This is the **default pre-selection** for every user.
+* **Per user** – on *My Account → Reminder settings*, each user can freely adjust
+  their own selection (add or remove projects), **including re-enabling** a
+  project the administrator excluded by default.
 
-The effective exclusion is the combination of both lists.
+If a user has not customised their selection, the global default applies. Once
+they save their own selection, that personal choice is used.
 
 ---
 

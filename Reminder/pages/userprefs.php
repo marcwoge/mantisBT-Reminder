@@ -104,21 +104,14 @@ $t_action = plugin_page( 'userprefs_update' );
 			<td class="category"><?php echo plugin_lang_get( 'excluded_projects' ); ?></td>
 			<td>
 				<?php
-					$t_global_excluded = plugin_config_get( 'excluded_projects' );
-					if( !is_array( $t_global_excluded ) ) { $t_global_excluded = array(); }
-					$t_global_excluded = array_map( 'intval', $t_global_excluded );
-					$t_personal = reminder_user_excluded_personal( $t_user_id );
-					# Only list projects that are not already excluded globally.
-					$t_projects = array();
-					foreach( reminder_user_projects( $t_user_id ) as $t_pid => $t_pname ) {
-						if( !in_array( $t_pid, $t_global_excluded, true ) ) {
-							$t_projects[$t_pid] = $t_pname;
-						}
-					}
+					# Effective selection: the user's own list, defaulting to the
+					# administrator's global pre-selection.
+					$t_excluded = reminder_excluded_projects( $t_user_id );
+					$t_projects = reminder_user_projects( $t_user_id );
 				?>
 				<select name="excluded_projects[]" multiple="multiple" size="<?php echo min( 8, max( 3, count( $t_projects ) ) ); ?>">
 					<?php foreach( $t_projects as $t_pid => $t_pname ) { ?>
-						<option value="<?php echo $t_pid; ?>"<?php echo in_array( $t_pid, $t_personal, true ) ? ' selected="selected"' : ''; ?>><?php echo string_attribute( $t_pname ); ?></option>
+						<option value="<?php echo $t_pid; ?>"<?php echo in_array( $t_pid, $t_excluded, true ) ? ' selected="selected"' : ''; ?>><?php echo string_attribute( $t_pname ); ?></option>
 					<?php } ?>
 				</select>
 				<div class="lighter"><?php echo plugin_lang_get( 'excluded_projects_user_hint' ); ?></div>

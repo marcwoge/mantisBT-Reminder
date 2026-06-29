@@ -4,6 +4,15 @@ Alle nennenswerten Änderungen an diesem Projekt werden hier dokumentiert.
 Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/),
 die Versionierung an [Semantic Versioning](https://semver.org/).
 
+## [1.2.1] - 2026-06-29
+
+### Geändert
+- Der globale Projekt-Ausschluss wirkt jetzt als **Vorauswahl/Standard**, nicht
+  als harte Sperre. Jeder Benutzer kann seine Auswahl frei anpassen und ein
+  global ausgeschlossenes Projekt für sich wieder aktivieren. Solange ein
+  Benutzer nichts gespeichert hat, gilt die globale Vorauswahl; danach seine
+  persönliche Auswahl. (Zuvor: Vereinigung aus global + persönlich.)
+
 ## [1.2.0] - 2026-06-29
 
 ### Hinzugefügt

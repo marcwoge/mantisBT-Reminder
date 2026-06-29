@@ -141,13 +141,13 @@ geerbt.
 Manche Projekte benötigen keine Erinnerungen. Du kannst sie ausschließen:
 
 * **Global (Admin)** – auf der Plugin-Konfigurationsseite die auszuschließenden
-  Projekte auswählen. Für Tickets in diesen Projekten werden für niemanden
-  Erinnerungen versendet.
+  Projekte auswählen. Das ist die **Standard-Vorauswahl** für jeden Benutzer.
 * **Pro Benutzer** – unter *Mein Konto → Erinnerungs-Einstellungen* kann jeder
-  Benutzer zusätzlich weitere Projekte nur für sich ausschließen. Global bereits
-  ausgeschlossene Projekte sind immer aus und werden dort nicht aufgeführt.
+  Benutzer seine Auswahl frei anpassen (Projekte hinzufügen oder entfernen) und
+  ein global ausgeschlossenes Projekt für sich **wieder aktivieren**.
 
-Der effektive Ausschluss ist die Kombination beider Listen.
+Solange ein Benutzer nichts angepasst hat, gilt die globale Vorauswahl. Sobald
+er eine eigene Auswahl speichert, wird diese persönliche Auswahl verwendet.
 
 ---
 

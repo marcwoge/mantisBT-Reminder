@@ -95,8 +95,12 @@ function reminder_user_projects( $p_user_id ) {
 }
 
 /**
- * Project ids that are excluded from reminders for the given user: the
- * union of the global (admin) exclusions and the user's personal ones.
+ * Project ids that are excluded from reminders for the given user.
+ *
+ * The global (admin) list acts as the default pre-selection: if the user
+ * has saved their own selection it is used, otherwise the global default
+ * applies. A user may therefore re-enable a globally excluded project for
+ * themselves, or exclude additional ones.
  *
  * @param integer $p_user_id User id.
  * @return array List of integer project ids.
@@ -106,32 +110,11 @@ function reminder_excluded_projects( $p_user_id ) {
 	if( !is_array( $t_global ) ) {
 		$t_global = array();
 	}
-	$t_user = config_get( 'plugin_Reminder_excluded_projects', $t_global, $p_user_id, ALL_PROJECTS );
-	if( !is_array( $t_user ) ) {
-		$t_user = array();
+	$t_effective = config_get( 'plugin_Reminder_excluded_projects', $t_global, $p_user_id, ALL_PROJECTS );
+	if( !is_array( $t_effective ) ) {
+		$t_effective = array();
 	}
-	return array_values( array_unique( array_map( 'intval', array_merge( $t_global, $t_user ) ) ) );
-}
-
-/**
- * A user's *personal* project exclusions only (without the global ones),
- * used to pre-select the per-user form.
- *
- * @param integer $p_user_id User id.
- * @return array List of integer project ids.
- */
-function reminder_user_excluded_personal( $p_user_id ) {
-	$t_global = plugin_config_get( 'excluded_projects' );
-	if( !is_array( $t_global ) ) {
-		$t_global = array();
-	}
-	$t_user = config_get( 'plugin_Reminder_excluded_projects', $t_global, $p_user_id, ALL_PROJECTS );
-	if( !is_array( $t_user ) ) {
-		$t_user = array();
-	}
-	return array_values( array_diff(
-		array_map( 'intval', $t_user ),
-		array_map( 'intval', $t_global ) ) );
+	return array_values( array_unique( array_map( 'intval', $t_effective ) ) );
 }
 
 /**
