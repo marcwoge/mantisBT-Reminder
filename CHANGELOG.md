@@ -4,6 +4,12 @@ Alle nennenswerten Änderungen an diesem Projekt werden hier dokumentiert.
 Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/),
 die Versionierung an [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Geändert
+- Lizenz von GPL-2.0 auf **MIT** geändert (gilt für den Code des Plugins).
+  Copyright: Marc-Philipp Woge. Datei-Header und READMEs entsprechend angepasst.
+
 ## [1.2.1] - 2026-06-29
 
 ### Geändert

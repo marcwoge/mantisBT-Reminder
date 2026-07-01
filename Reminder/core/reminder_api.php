@@ -1,9 +1,7 @@
 <?php
 # MantisBT - Open Ticket Reminder Plugin
-# Copyright (C) 2026  Marc Woge
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License (v2 or later).
+# Copyright (c) 2026 Marc-Philipp Woge
+# Licensed under the MIT License. See the LICENSE file for details.
 
 /**
  * Core logic for the Open Ticket Reminder plugin.

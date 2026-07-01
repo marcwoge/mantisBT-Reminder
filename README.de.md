@@ -239,4 +239,7 @@ Die vollständige Schritt-für-Schritt-Anleitung steht in
 
 ## Lizenz
 
-[GNU General Public License v2.0](LICENSE) – wie MantisBT selbst.
+[MIT-Lizenz](LICENSE) © 2026 Marc-Philipp Woge.
+
+Das gilt für den Code des Plugins. MantisBT selbst steht unter der GPL; das
+MIT-lizenzierte Plugin ist permissiv und lässt sich problemlos daneben nutzen.

@@ -230,4 +230,8 @@ The full step-by-step walkthrough is in [docker/README.md](docker/README.md).
 
 ## License
 
-[GNU General Public License v2.0](LICENSE) – same as MantisBT itself.
+[MIT License](LICENSE) © 2026 Marc-Philipp Woge.
+
+This applies to the plugin’s own code. MantisBT itself is licensed separately
+under the GPL; the MIT-licensed plugin is permissive and works fine alongside
+it.
