@@ -4,6 +4,12 @@ Alle nennenswerten Änderungen an diesem Projekt werden hier dokumentiert.
 Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/),
 die Versionierung an [Semantic Versioning](https://semver.org/).
 
+## [1.2.3] - 2026-07-01
+
+### Hinzugefügt
+- `LICENSE`-Datei im Plugin-Ordner (`Reminder/LICENSE`), damit auch das
+  verteilte Plugin-Archiv den vollständigen MIT-Lizenztext enthält.
+
 ## [1.2.2] - 2026-07-01
 
 ### Geändert
