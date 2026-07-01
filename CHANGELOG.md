@@ -4,11 +4,15 @@ Alle nennenswerten Änderungen an diesem Projekt werden hier dokumentiert.
 Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/),
 die Versionierung an [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.2.2] - 2026-07-01
 
 ### Geändert
 - Lizenz von GPL-2.0 auf **MIT** geändert (gilt für den Code des Plugins).
   Copyright: Marc-Philipp Woge. Datei-Header und READMEs entsprechend angepasst.
+
+### Entfernt
+- Versehentlich eingecheckter MantisBT-Core (`mantis/`) aus der Versionierung
+  genommen (gehört nicht zum Plugin).
 
 ## [1.2.1] - 2026-06-29
 
