@@ -18,3 +18,6 @@ composer.lock
 
 # Local MantisBT core installation (not part of this plugin; GPL-licensed)
 mantis/
+
+# Local Docker sandbox secrets (see .env.example)
+.env
