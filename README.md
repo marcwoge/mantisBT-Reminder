@@ -192,7 +192,7 @@ without a web server** – the required MantisBT functions are replaced by stubs
    Without a local PHP you can use Docker:
 
    ```bash
-   docker run --rm -v "$PWD":/app -w /app php:8.2-cli php tests/run_tests.php
+   docker run --rm -v "$PWD":/app -w /app php:8.4-cli php tests/run_tests.php
    ```
 
 The runner prints `Passed: N  Failed: 0` and returns exit code 1 on failure
@@ -225,7 +225,7 @@ The full step-by-step walkthrough is in [docker/README.md](docker/README.md).
 
 ## Compatibility
 
-* MantisBT **2.0.0** or newer
+* MantisBT **2.0.0** or newer (recommended: **2.28.4 or newer**, fixes CVE-2026-47156)
 * PHP 5.6+
 
 ## License
