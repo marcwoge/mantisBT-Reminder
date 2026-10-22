@@ -200,7 +200,7 @@ Webserver** laufen – die nötigen MantisBT-Funktionen werden durch Stubs erset
    Ohne lokales PHP geht es auch per Docker:
 
    ```bash
-   docker run --rm -v "$PWD":/app -w /app php:8.2-cli php tests/run_tests.php
+   docker run --rm -v "$PWD":/app -w /app php:8.4-cli php tests/run_tests.php
    ```
 
 Der Runner gibt am Ende `Passed: N  Failed: 0` aus und liefert bei Fehlern den
@@ -234,7 +234,7 @@ Die vollständige Schritt-für-Schritt-Anleitung steht in
 
 ## Kompatibilität
 
-* MantisBT **2.0.0** oder neuer
+* MantisBT **2.0.0** oder neuer (empfohlen: **2.28.4 oder neuer**, behebt CVE-2026-47156)
 * PHP 5.6+
 
 ## Lizenz
