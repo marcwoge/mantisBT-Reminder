@@ -187,8 +187,8 @@ Webserver** laufen – die nötigen MantisBT-Funktionen werden durch Stubs erset
 
 **Du musst MantisBT dafür nicht installieren.** Zwei Wege:
 
-1. **Automatisch via GitHub Actions** – bei jedem Push laufen die Tests auf
-   PHP 7.4–8.3 (siehe [.github/workflows/tests.yml](.github/workflows/tests.yml)).
+1. **Automatisch via GitHub Actions** – bei jedem Pull Request laufen die Tests auf
+   PHP 8.3, 8.4 und 8.5 (siehe [.github/workflows/tests.yml](.github/workflows/tests.yml)).
    So brauchst du lokal gar nichts.
 
 2. **Lokal** – nur eine PHP-CLI nötig (kein MantisBT):
@@ -235,7 +235,7 @@ Die vollständige Schritt-für-Schritt-Anleitung steht in
 ## Kompatibilität
 
 * MantisBT **2.0.0** oder neuer (empfohlen: **2.28.4 oder neuer**, behebt CVE-2026-47156)
-* PHP 5.6+
+* PHP **8.3+** (in der CI geprüft mit PHP 8.3, 8.4 und 8.5)
 
 ## Lizenz
 

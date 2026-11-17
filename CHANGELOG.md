@@ -4,6 +4,13 @@ Alle nennenswerten Änderungen an diesem Projekt werden hier dokumentiert.
 Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/),
 die Versionierung an [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Geändert
+- Dokumentierte Mindestversion auf **PHP 8.3** angehoben (vorher PHP 5.6+).
+  PHP 8.2 erreicht am 2026-12-31 sein Security-EOL; die CI-Matrix läuft jetzt
+  auf PHP 8.3, 8.4 und 8.5. Am Code selbst hat sich nichts geändert.
+
 ## [1.2.3] - 2026-07-01
 
 ### Hinzugefügt
