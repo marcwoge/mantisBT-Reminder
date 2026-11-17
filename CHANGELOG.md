@@ -4,6 +4,13 @@ Alle nennenswerten Änderungen an diesem Projekt werden hier dokumentiert.
 Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/),
 die Versionierung an [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Geändert
+- CI-Testmatrix läuft jetzt auf PHP 8.3, 8.4 und 8.5; PHP 8.2 (Security-EOL
+  2026-12-31) wird nicht mehr getestet. Die dokumentierte Mindestversion
+  (PHP 5.6) und der Code sind unverändert.
+
 ## [1.2.3] - 2026-07-01
 
 ### Hinzugefügt

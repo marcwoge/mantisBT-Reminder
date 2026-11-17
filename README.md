@@ -179,8 +179,8 @@ without a web server** – the required MantisBT functions are replaced by stubs
 
 **You do not need to install MantisBT for this.** Two ways:
 
-1. **Automatically via GitHub Actions** – the tests run on PHP 7.4–8.3 on every
-   push (see [.github/workflows/tests.yml](.github/workflows/tests.yml)), so you
+1. **Automatically via GitHub Actions** – the tests run on PHP 8.3, 8.4 and 8.5 on
+   every pull request (see [.github/workflows/tests.yml](.github/workflows/tests.yml)), so you
    need nothing locally.
 
 2. **Locally** – only a PHP CLI is required (no MantisBT):
@@ -226,7 +226,7 @@ The full step-by-step walkthrough is in [docker/README.md](docker/README.md).
 ## Compatibility
 
 * MantisBT **2.0.0** or newer (recommended: **2.28.4 or newer**, fixes CVE-2026-47156)
-* PHP 5.6+
+* PHP 5.6+ (CI-tested with PHP 8.3, 8.4 and 8.5)
 
 ## License
 
