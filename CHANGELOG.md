@@ -7,9 +7,9 @@ die Versionierung an [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Geändert
-- Dokumentierte Mindestversion auf **PHP 8.3** angehoben (vorher PHP 5.6+).
-  PHP 8.2 erreicht am 2026-12-31 sein Security-EOL; die CI-Matrix läuft jetzt
-  auf PHP 8.3, 8.4 und 8.5. Am Code selbst hat sich nichts geändert.
+- CI-Testmatrix läuft jetzt auf PHP 8.3, 8.4 und 8.5; PHP 8.2 (Security-EOL
+  2026-12-31) wird nicht mehr getestet. Die dokumentierte Mindestversion
+  (PHP 5.6) und der Code sind unverändert.
 
 ## [1.2.3] - 2026-07-01
 

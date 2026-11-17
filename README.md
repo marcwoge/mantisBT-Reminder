@@ -226,7 +226,7 @@ The full step-by-step walkthrough is in [docker/README.md](docker/README.md).
 ## Compatibility
 
 * MantisBT **2.0.0** or newer (recommended: **2.28.4 or newer**, fixes CVE-2026-47156)
-* PHP **8.3+** (CI-tested with PHP 8.3, 8.4 and 8.5)
+* PHP 5.6+ (CI-tested with PHP 8.3, 8.4 and 8.5)
 
 ## License
 

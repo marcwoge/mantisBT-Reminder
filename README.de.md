@@ -235,7 +235,7 @@ Die vollständige Schritt-für-Schritt-Anleitung steht in
 ## Kompatibilität
 
 * MantisBT **2.0.0** oder neuer (empfohlen: **2.28.4 oder neuer**, behebt CVE-2026-47156)
-* PHP **8.3+** (in der CI geprüft mit PHP 8.3, 8.4 und 8.5)
+* PHP 5.6+ (in der CI geprüft mit PHP 8.3, 8.4 und 8.5)
 
 ## Lizenz
 
